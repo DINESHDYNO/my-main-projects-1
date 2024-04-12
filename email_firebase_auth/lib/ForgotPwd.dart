@@ -96,7 +96,7 @@ class _ForgotPwdState extends State<ForgotPwd> {
                   children: [
                     TextButton(
                       onPressed: () => {Navigator.pushAndRemoveUntil(context, PageRouteBuilder(
-                        pageBuilder: (context, a, b) => loginscreen(),
+                        pageBuilder: (context, a, b) => LoginScreen(),
                         transitionDuration: const Duration(seconds: 0),
                       ),
                               (route) => false)

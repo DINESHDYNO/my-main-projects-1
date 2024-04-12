@@ -12,14 +12,14 @@ showSnackBar(BuildContext context, String text) {
     content: Text(text),
   ));
 }
-class loginscreen extends StatefulWidget {
-  const loginscreen({super.key});
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
 
   @override
-  State<loginscreen> createState() => _loginscreenState();
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _loginscreenState extends State<loginscreen> {
+class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final FirebaseAuth auth = FirebaseAuth.instance;
@@ -46,7 +46,7 @@ class _loginscreenState extends State<loginscreen> {
           isloading = false;
         });
         showSnackBar(_scaffoldKey.currentContext!, result);
-        Navigator.push(context, MaterialPageRoute(builder: (context)=>const home1()));
+        Navigator.push(context, MaterialPageRoute(builder: (context)=>const Home()));
       }else {
         showSnackBar(_scaffoldKey.currentContext!, result);
         setState(() {
@@ -86,9 +86,7 @@ class _loginscreenState extends State<loginscreen> {
                 height: height * 0.40,
                 width: width,
               ),
-              const SizedBox(
-                height: 5,
-              ),
+              const SizedBox(height: 5,),
               const Center(
                 child: Text(
                   appName,

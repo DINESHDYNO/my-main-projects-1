@@ -73,7 +73,7 @@ class _OTP_LoginState extends State<OTP_Login> {
                         credential(verificationId: verificationid, smsCode: verify.text);
                         await firebaseAuth.signInWithCredential(credentials).whenComplete(() => showSnackBar(context, "verified")).then((value) =>
                            // Navigator.push(context, MaterialPageRoute(builder: (context) => const loginscreen())));
-                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => loginscreen())));
+                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginScreen())));
                       }
                       catch(e){
                         showSnackBar(context, e.toString());
@@ -87,6 +87,7 @@ class _OTP_LoginState extends State<OTP_Login> {
         codeAutoRetrievalTimeout: (verificationId){}
     );
   }
+
 
   @override
   Widget build(BuildContext context) {

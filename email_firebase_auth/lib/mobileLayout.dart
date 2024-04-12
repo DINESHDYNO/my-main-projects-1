@@ -15,6 +15,6 @@ class MobilescreenLayout extends StatefulWidget {
 class _MobilescreenLayoutState extends State<MobilescreenLayout> {
   @override
   Widget build(BuildContext context) {
-    return const loginscreen();
+    return const LoginScreen();
   }
 }

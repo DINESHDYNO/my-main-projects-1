@@ -5,7 +5,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
-import 'auth_otp.dart';
 import 'loginscreen.dart';
 
 Future<void> main() async {
@@ -40,7 +39,7 @@ class MyApp extends StatelessWidget {
             builder: (context,snapshot){
           if(snapshot.connectionState==ConnectionState.active){
             if(snapshot.hasData){
-              return const home1();
+              return const Home();
             }else if(snapshot.hasError){
               return Center(child: Text('${snapshot.error}'));
             }
@@ -48,7 +47,7 @@ class MyApp extends StatelessWidget {
           if(snapshot.connectionState==ConnectionState.waiting){
             return const Center(child: CircularProgressIndicator());
           }
-          return const OTP_Login();
+          return const LoginScreen();
         })
         //loginscreen(),
       ),

@@ -5,16 +5,19 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'auth_methods.dart';
 
-class home1 extends StatefulWidget {
-  const home1({super.key});
+
+class Home extends StatefulWidget {
+  const Home({super.key});
 
   @override
-  State<home1> createState() => _home1State();
+  State<Home> createState() => _home1State();
 }
 
-class _home1State extends State<home1> {
+class _home1State extends State<Home> {
 
+  final AuthMethods _authMethods = AuthMethods();
 
   String username = '';
   String email = '';
@@ -49,18 +52,28 @@ class _home1State extends State<home1> {
     });
   }
 
+
   @override
   Widget build(BuildContext context) {
     model.User? user = Provider.of<UserProvider>(context).getUser;
-  //  print("--------$user-------------");
     return Scaffold(
-      body: Center(
+      appBar: AppBar(
+        title: Text('Chat App'),
+        centerTitle: true,
+        actions: [
+          IconButton(onPressed: () async {
+            await _authMethods.logout();
+          }, icon: Icon(Icons.logout)),
+        ],
+      ),
+      drawer: Drawer(
         child: isLoading
             ? const CircularProgressIndicator()
             : Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
+            SizedBox(height: MediaQuery.of(context).padding.top,),
             Text(
               'Username: ${user?.username}',
               style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
@@ -77,8 +90,62 @@ class _home1State extends State<home1> {
               'UID: ${user?.uid}',
               style: const TextStyle(fontSize: 15),
             ),
+            SizedBox(height: 50,),
           ],
-        )
+        ),
+      ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(
+            margin: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 5),
+            height: 50,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.3),
+                  spreadRadius: 3,
+                  blurRadius: 3
+                )
+              ]
+            ),
+            child: TextFormField(
+              decoration: const InputDecoration(
+                suffixIcon: Icon(Icons.search),
+                border: InputBorder.none
+              ),
+            )
+          ),
+          ElevatedButton(
+            onPressed: () async {
+              String result = await _authMethods.userData(context);
+              print(result); // Print the result of the operation
+
+              // Show a dialog based on the result
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    title: Text('Upload Result'),
+                    content: Text(result == 'success' ? 'Upload successful' : 'Upload failed'),
+                    actions: [
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: Text('OK'),
+                      ),
+                    ],
+                  );
+                },
+              );
+            },
+            child: Text('Upload Data'),
+          )
+        ],
       ),
     );
   }

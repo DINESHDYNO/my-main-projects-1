@@ -1,3 +1,4 @@
+import 'package:email_firebase_auth/user_auth_getx.dart';
 import 'package:flutter/material.dart';
 
 import 'auth_methods.dart';
@@ -52,6 +53,9 @@ class createacc extends StatefulWidget {
 }
 
 class _createaccState extends State<createacc> {
+
+  RegisterWithGetX registerWithGetX=RegisterWithGetX();
+
   final _formKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   bool isloading=false;
@@ -100,7 +104,7 @@ class _createaccState extends State<createacc> {
           isloading = false;
         });
         showSnackBar(_scaffoldKey.currentContext!, result);
-        Navigator.push(context, MaterialPageRoute(builder: (context)=>const home1()));
+        Navigator.push(context, MaterialPageRoute(builder: (context)=>const Home()));
       } else {
         showSnackBar(_scaffoldKey.currentContext!, result);
         setState(() {
@@ -113,7 +117,6 @@ class _createaccState extends State<createacc> {
       isloading = false;
     });
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -212,7 +215,7 @@ class _createaccState extends State<createacc> {
                   child: Row(
                     children: [
                       Text(
-                        'Email Adress',
+                        "Email Adress ( e.g., example@example.com )",
                         style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
@@ -236,11 +239,9 @@ class _createaccState extends State<createacc> {
                       filled: true,
                       border: OutlineInputBorder(),
                       hintText: 'Enter your email ',
-                      helperText: 'e.g., example@example.com',
                     ),
                   ),
                 ),
-
                 const Padding(
                   padding: EdgeInsets.all(10.0),
                   child: Row(
@@ -359,7 +360,7 @@ class _createaccState extends State<createacc> {
                                   PageRouteBuilder(
                                     pageBuilder:
                                         (context, animation1, animation2) =>
-                                            const loginscreen(),
+                                            const LoginScreen(),
                                     transitionDuration: const Duration(seconds: 0),
                                   ),
                                 )
